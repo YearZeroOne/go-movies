@@ -1,9 +1,10 @@
 package main
 
 import (
+	"fmt"
+	"github.com/YearZeroOne/go-movies/config"
 	"github.com/YearZeroOne/go-movies/database"
 	"github.com/gofiber/fiber/v2"
-
 	jwtware "github.com/gofiber/contrib/jwt"
 )
 
@@ -14,13 +15,14 @@ func main() {
 	UserRoutes(app)
 
 	app.Use(jwtware.New(jwtware.Config{
-		SigningKey:  jwtware.SigningKey{Key: []byte("secret")},
+		SigningKey:  jwtware.SigningKey{Key: config.JwtSecret},
 		TokenLookup: "header:Authorization",
 		AuthScheme:  "Bearer",
 		SuccessHandler: func(c *fiber.Ctx) error {
 			return c.Next()
 		},
 		ErrorHandler: func(c *fiber.Ctx, err error) error {
+			fmt.Println("JWT Error:", err.Error())
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 				"error": "Unauthorized",
 			})

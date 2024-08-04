@@ -3,6 +3,7 @@ package handlers
 import (
 	"time"
 
+	"github.com/YearZeroOne/go-movies/config"
 	"github.com/YearZeroOne/go-movies/database"
 	"github.com/YearZeroOne/go-movies/models"
 	"github.com/gofiber/fiber/v2"
@@ -89,8 +90,6 @@ func EditMovie(c *fiber.Ctx) error {
 	return c.Status(200).JSON(movie)
 }
 
-var jwtSecret = []byte("your_secret_key")
-
 func Register(c *fiber.Ctx) error {
 	var data map[string]string
 
@@ -133,7 +132,7 @@ func Login(c *fiber.Ctx) error {
 		"exp":     time.Now().Add(time.Hour * 72).Unix(),
 	})
 
-	tokenString, err := token.SignedString(jwtSecret)
+	tokenString, err := token.SignedString(config.JwtSecret)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"message": "Could not log in"})
 	}
