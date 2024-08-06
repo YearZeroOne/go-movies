@@ -17,22 +17,22 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: 1.19
+        go-version: 1.22
+
+    - name: Set working directory
+      working-directory: ./src
 
     - name: Install dependencies
       run: go mod tidy
-      working-directory: ./src  # Change ./src to the actual directory if your Go files are not in the root
 
     - name: Build the project
       run: go build -o main .
-      working-directory: ./src  # Set the correct working directory
 
     - name: Run tests
       run: go test ./...
-      working-directory: ./src  # Set the correct working directory
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v3
       with:
         name: main
-        path: ./src/main  # Adjust the path if necessary
+        path: main
