@@ -24,6 +24,8 @@ jobs:
 
     - name: Build the project
       run: go build -o main .
+      working-directory: ./cmd
+
 
     - name: Run tests
       run: go test ./...
