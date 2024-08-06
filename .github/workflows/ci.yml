@@ -19,6 +19,9 @@ jobs:
       with:
         go-version: 1.22
 
+    - name: Set working directory
+      working-directory: ./src
+
     - name: Install dependencies
       run: go mod tidy
 
