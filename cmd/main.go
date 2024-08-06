@@ -10,7 +10,7 @@ import (
 
 func main() {
 	database.ConnectDb()
-	app := fiber.New()
+	app := fiber.New
 
 	UserRoutes(app)
 
