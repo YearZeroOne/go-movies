@@ -19,10 +19,10 @@ func main() {
 		TokenLookup: "header:Authorization",
 		AuthScheme:  "Bearer",
 		SuccessHandler: func(c *fiber.Ctx) error {
+			fmt.Println("Hello World!")
 			return c.Next()
 		},
 		ErrorHandler: func(c *fiber.Ctx, err error) error {
-			fmt.Println("JWT Error:", err.Error())
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 				"error": "Unauthorized",
 			})
