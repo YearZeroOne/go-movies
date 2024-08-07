@@ -70,11 +70,6 @@ jobs:
         key: ${{ secrets.EC2_KEY }}
         script: |
           script: |
-            docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-            docker stop goapplication || true
-            docker rm goapplication || true
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/goapplication:latest
-            docker run -d --name goapplication -p 3000:3000 ${{ secrets.DOCKERHUB_USERNAME }}/goapplication:latest
             cd /home/ec2-user/go-movies/
             docker-compose pull
             docker-compose up -d
