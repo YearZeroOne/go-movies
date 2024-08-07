@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-test-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -61,9 +61,17 @@ jobs:
           push: true
           tags: yearzeroone/goapplication:latest
 
-    - name: Deploy with Docker Compose
-      run: |
-        docker-compose pull
-        docker-compose up -d
+
+    - name: Deploy to EC2 with Docker Compose
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          cd /home/ec2-user/
+          docker-compose pull
+          docker-compose up -d
+
 
 
