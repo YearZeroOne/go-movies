@@ -17,15 +17,16 @@
   - **Request Body:**
     ```json
     {
-    "id": 1,
     "username": "your-username",
-    "password": "hashed-password"
+    "password": "your-password"
     }
     ```
   - **Response:**
     ```json
     {
-        "token": "your-jwt-token"
+    "id": 1,
+    "username": "your-username",
+    "password": "hashed-password"
     }
     ```
 
